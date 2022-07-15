@@ -5,7 +5,6 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import CreateProfile from './pages/CreateProfilet';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from './pages/Search';
 import CreateGroupe from './pages/CreateGroupe';
