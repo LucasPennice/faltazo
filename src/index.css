@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+#root {
+	min-height: 100vh;
+}
+
+.gradient {
+	background: rgb(239, 89, 247);
+	background: linear-gradient(148deg, rgba(239, 89, 247, 1) 0%, rgba(165, 78, 226, 1) 100%);
+}
