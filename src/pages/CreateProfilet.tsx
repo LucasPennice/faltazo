@@ -7,7 +7,7 @@ import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const CreateProfile = ({ setIsUserProfileCreated }: { setIsUserProfileCreated: (value: boolean) => void }) => {
@@ -59,6 +59,7 @@ const CreateProfile = ({ setIsUserProfileCreated }: { setIsUserProfileCreated: (
 					crear
 				</m.button>
 			</m.form>
+			<ToastContainer position={'top-center'} theme={'dark'} />
 		</main>
 	);
 };

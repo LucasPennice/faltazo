@@ -46,7 +46,6 @@ function App() {
 						</>
 					))}
 			</Routes>
-			<ToastContainer position={'top-center'} theme={'dark'} />
 		</BrowserRouter>
 	);
 }

@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { userData } from '../types';
 import { motion as m, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const SeleccionarIntegrante = () => {
 	let location = useLocation();
@@ -23,6 +23,7 @@ const SeleccionarIntegrante = () => {
 			{state.groupeParticipants.map((user: userData, idx: number) => {
 				return <SwippeableCard key={idx} idx={idx} data={user} />;
 			})}
+			<ToastContainer position={'top-center'} theme={'dark'} />
 		</main>
 	);
 };
@@ -33,6 +34,17 @@ const SwippeableCard = ({ idx, data }: { idx: number; data: userData }) => {
 	const { nombre } = data;
 	const x = useMotionValue(0);
 	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#FB4D3D']);
+
+	useEffect(
+		() =>
+			x.onChange((latest) => {
+				if (latest >= 150 || latest <= -150)
+					toast(`matamos a ${nombre}`, {
+						toastId: nombre,
+					});
+			}),
+		[]
+	);
 
 	return (
 		<m.div

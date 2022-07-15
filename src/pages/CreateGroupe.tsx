@@ -1,7 +1,7 @@
 import { motion as m } from 'framer-motion';
 import { useState } from 'react';
 import { FilePond } from 'react-filepond';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import TextArea from '../components/TextArea';
 import TextInput from '../components/TextInput';
 
@@ -57,6 +57,7 @@ const CreateGroupe = () => {
 					crear
 				</m.button>
 			</m.form>
+			<ToastContainer position={'top-center'} theme={'dark'} />
 		</main>
 	);
 };

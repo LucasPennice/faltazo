@@ -1,6 +1,6 @@
 import { motion as m, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { notification } from '../types';
 
 const Notifications = ({ notificationStack }: { notificationStack: notification[] }) => {
@@ -37,6 +37,7 @@ const Notifications = ({ notificationStack }: { notificationStack: notification[
 			{notificationStack.map((item, idx) => {
 				return <NotificationCard key={idx} idx={idx} item={item} />;
 			})}
+			<ToastContainer position={'top-center'} theme={'dark'} />
 		</main>
 	);
 };
@@ -45,6 +46,22 @@ export default Notifications;
 const NotificationCard = ({ idx, item }: { idx: number; item: notification }) => {
 	const x = useMotionValue(0);
 	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#78BC61']);
+
+	useEffect(
+		() =>
+			x.onChange((latest) => {
+				if (latest >= 150) {
+					toast(`aceptada`, {
+						toastId: 'dqwd',
+					});
+				} else if (latest <= -150) {
+					toast('cancelada', {
+						toastId: 'qwdqwdq',
+					});
+				}
+			}),
+		[]
+	);
 
 	return (
 		<m.div
