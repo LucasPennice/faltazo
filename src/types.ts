@@ -18,12 +18,33 @@ export type groupeInfo = {
 export type notification = {
 	type: 'falta';
 	solicitador: userData;
+	target: { nombre: string; img: string };
 };
 
 export const MOCKNOTIFICATION: notification[] = [
 	{
 		type: 'falta',
 		solicitador: { id: '1', img: 'nvm', nombre: 'nelli', bio: 'nelli bio', description: 'nelli desc' },
+		target: {
+			nombre: 'seba',
+			img: 'https://images.justwatch.com/poster/246488142/s592/goblin-el-solitario-ser-inmortal',
+		},
+	},
+	{
+		type: 'falta',
+		solicitador: { id: '1', img: 'nvm', nombre: 'nelli', bio: 'nelli bio', description: 'nelli desc' },
+		target: {
+			nombre: 'seba',
+			img: 'https://images.justwatch.com/poster/246488142/s592/goblin-el-solitario-ser-inmortal',
+		},
+	},
+	{
+		type: 'falta',
+		solicitador: { id: '1', img: 'nvm', nombre: 'nelli', bio: 'nelli bio', description: 'nelli desc' },
+		target: {
+			nombre: 'seba',
+			img: 'https://images.justwatch.com/poster/246488142/s592/goblin-el-solitario-ser-inmortal',
+		},
 	},
 ];
 

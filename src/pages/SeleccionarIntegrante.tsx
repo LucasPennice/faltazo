@@ -3,7 +3,6 @@ import { userData } from '../types';
 import { motion as m, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { options } from './Home';
 
 const SeleccionarIntegrante = () => {
 	let location = useLocation();
