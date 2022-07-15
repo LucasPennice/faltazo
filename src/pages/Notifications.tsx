@@ -1,5 +1,5 @@
 import { motion as m, useMotionValue, useTransform } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { notification } from '../types';
 
@@ -45,16 +45,17 @@ export default Notifications;
 
 const NotificationCard = ({ idx, item }: { idx: number; item: notification }) => {
 	const x = useMotionValue(0);
-	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#78BC61']);
+	const background = useTransform(x, [-50, 0, 50], ['#FB4D3D', '#AB54E4', '#78BC61']);
+	const [action, setAction] = useState<undefined | 'accept' | 'reject'>(undefined);
 
 	useEffect(
 		() =>
 			x.onChange((latest) => {
-				if (latest >= 150) {
+				if (latest >= 50) {
 					toast(`aceptada`, {
 						toastId: 'dqwd',
 					});
-				} else if (latest <= -150) {
+				} else if (latest <= -50) {
 					toast('cancelada', {
 						toastId: 'qwdqwdq',
 					});

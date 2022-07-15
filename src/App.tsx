@@ -16,8 +16,8 @@ import { MOCKDATAGROUPE, MOCKNOTIFICATION, notification } from './types';
 import SeleccionarIntegrante from './pages/SeleccionarIntegrante';
 
 function App() {
-	const [isLogin, setIsLogin] = useState(true);
-	const [isUserProfileCreated, setIsUserProfileCreated] = useState(true);
+	const [isLogin, setIsLogin] = useState(false);
+	const [isUserProfileCreated, setIsUserProfileCreated] = useState(false);
 	const [notificationStack, setNotificationStack] = useState<notification[]>(MOCKNOTIFICATION);
 	// const [notificationStack, setNotificationStack] = useState<notification[]>([]);
 	const [userGroupes, setUserGroupes] = useState(MOCKDATAGROUPE);
