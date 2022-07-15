@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { userData } from '../types';
 import { motion as m, useMotionValue, useTransform } from 'framer-motion';
