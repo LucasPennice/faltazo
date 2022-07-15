@@ -46,22 +46,6 @@ const NotificationCard = ({ idx, item }: { idx: number; item: notification }) =>
 	const x = useMotionValue(0);
 	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#78BC61']);
 
-	useEffect(
-		() =>
-			x.onChange((latest) => {
-				if (latest >= 150) {
-					toast(`aceptada`, {
-						toastId: 'dqwd',
-					});
-				} else if (latest <= -150) {
-					toast('cancelada', {
-						toastId: 'qwdqwdq',
-					});
-				}
-			}),
-		[]
-	);
-
 	return (
 		<m.div
 			key={idx}

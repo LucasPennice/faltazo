@@ -34,17 +34,6 @@ const SwippeableCard = ({ idx, data }: { idx: number; data: userData }) => {
 	const x = useMotionValue(0);
 	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#FB4D3D']);
 
-	useEffect(
-		() =>
-			x.onChange((latest) => {
-				if (latest >= 150 || latest <= -150)
-					toast(`matamos a ${nombre}`, {
-						toastId: nombre,
-					});
-			}),
-		[]
-	);
-
 	return (
 		<m.div
 			key={idx}
