@@ -32,7 +32,7 @@ const SeleccionarIntegrante = () => {
 export default SeleccionarIntegrante;
 
 const SwippeableCard = ({ idx, data }: { idx: number; data: userData }) => {
-	const { nombre } = data;
+	const { nombre, img, bio } = data;
 	const x = useMotionValue(0);
 	const background = useTransform(x, [-150, 0, 150], ['#FB4D3D', '#AB54E4', '#FB4D3D']);
 
@@ -60,12 +60,10 @@ const SwippeableCard = ({ idx, data }: { idx: number; data: userData }) => {
 			transition={{ delay: 0.3 + idx / 10 }}
 			className='my-6 rounded h-20 flex justify-between items-center px-8 shadow-xl shadow-black-400'
 			style={{ backgroundColor: background, x }}>
-			<img
-				src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Face-monkey.svg/2048px-Face-monkey.svg.png'
-				className='w-12 h-12 rounded-full border border-black bg-white'
-			/>
+			<img src={img} className='w-12 h-12 rounded-full border border-black bg-white' />
 			<aside className='text-white uppercase tracking-wider text-right'>
 				<h1>{nombre}</h1>
+				<h2 className='opacity-50'>{bio}</h2>
 			</aside>
 		</m.div>
 	);

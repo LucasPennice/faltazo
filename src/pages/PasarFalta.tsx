@@ -1,8 +1,8 @@
 import { motion as m } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
-import { groupeInfo } from '../types';
+import { groupe } from '../types';
 
-const PasarFalta = ({ userGroupes }: { userGroupes: groupeInfo[] }) => {
+const PasarFalta = ({ userGroupes }: { userGroupes: groupe[] }) => {
 	if (userGroupes.length === 0)
 		return (
 			<m.main
@@ -30,7 +30,7 @@ const PasarFalta = ({ userGroupes }: { userGroupes: groupeInfo[] }) => {
 			<m.h1 className='text-center text-3xl' initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
 				Seleccionar un grupo
 			</m.h1>
-			{userGroupes.map((item: groupeInfo, idx: number) => {
+			{userGroupes.map((item: groupe, idx: number) => {
 				return (
 					<NavLink to={`/falta:${item.id}`} state={{ groupeParticipants: item.participants }} key={idx}>
 						<m.div
@@ -38,10 +38,7 @@ const PasarFalta = ({ userGroupes }: { userGroupes: groupeInfo[] }) => {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.3 + idx / 10 }}
 							className='my-6 rounded h-20 flex justify-between items-center px-8 shadow-xl shadow-black-400 gradient'>
-							<img
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Face-monkey.svg/2048px-Face-monkey.svg.png'
-								className='w-12 h-12 rounded-full border border-black bg-white'
-							/>
+							<img src={item.img} className='w-12 h-12 rounded-full border border-black bg-white' />
 							<aside className='text-white uppercase tracking-wider text-right'>
 								<h1>{item.name}</h1>
 								<h2 className='opacity-50'>{item.participants.length} integrantes</h2>
