@@ -1,9 +1,18 @@
 import { motion as m } from 'framer-motion';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { GroupesContext } from '../App';
+import LoadingIcon from '../components/LoadingIcon';
 import { groupe } from '../types';
 
-const PasarFalta = ({ userGroupes }: { userGroupes: groupe[] }) => {
-	if (userGroupes.length === 0)
+const PasarFalta = () => {
+	const groupesData = useContext(GroupesContext);
+
+	if (!groupesData || groupesData.isLoading) return <LoadingIcon />;
+
+	if (groupesData.error) return <div>There has been an error fetching the groupe data</div>;
+
+	if (groupesData.data!.length === 0)
 		return (
 			<m.main
 				initial={{ opacity: 0, y: 50 }}
@@ -30,7 +39,7 @@ const PasarFalta = ({ userGroupes }: { userGroupes: groupe[] }) => {
 			<m.h1 className='text-center text-3xl' initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
 				Seleccionar un grupo
 			</m.h1>
-			{userGroupes.map((item: groupe, idx: number) => {
+			{groupesData.data!.map((item: groupe, idx: number) => {
 				return (
 					<NavLink to={`/falta:${item.id}`} state={{ groupeParticipants: item.participants }} key={idx}>
 						<m.div

@@ -12,6 +12,10 @@ import {
 	Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { notificationFalta } from '../types';
+import LoadingIcon from '../components/LoadingIcon';
+import { useContext } from 'react';
+import { NotificationContext } from '../App';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
@@ -43,7 +47,9 @@ export const data = {
 	],
 };
 
-const Home = ({ notificationStack }: { notificationStack: any[] }) => {
+const Home = () => {
+	const notificationData = useContext(NotificationContext);
+
 	return (
 		<main className='pt-24 mx-4'>
 			<NavLink to='/pasarFalta'>
@@ -56,7 +62,8 @@ const Home = ({ notificationStack }: { notificationStack: any[] }) => {
 					PASAR FALTA
 				</m.section>
 			</NavLink>
-			{notificationStack.length !== 0 && (
+			{notificationData && notificationData.isLoading && <LoadingIcon />}
+			{notificationData && !notificationData.isLoading && !notificationData.error && notificationData.data?.length && (
 				<NavLink to='/notifications'>
 					<m.section
 						initial={{ opacity: 0, y: 50 }}
@@ -68,6 +75,7 @@ const Home = ({ notificationStack }: { notificationStack: any[] }) => {
 					</m.section>
 				</NavLink>
 			)}
+
 			<m.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
 				<Line options={options} data={data} />
 			</m.div>

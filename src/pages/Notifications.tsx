@@ -1,17 +1,26 @@
+import axios from 'axios';
 import { AnimatePresence, motion as m, useMotionValue, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { NotificationContext } from '../App';
 import { notificationFalta } from '../types';
+import { BACKEND_URL } from '../utils';
 
-type PropTypes = {
-	notificationStack: notificationFalta[];
-	deleteNotification: (action: 'accept' | 'reject', idxInStack: string) => void;
-};
+type PropTypes = {};
 
-const Notifications = ({ notificationStack, deleteNotification }: PropTypes) => {
+const Notifications = ({}: PropTypes) => {
+	const notificationData = useContext(NotificationContext);
+	const [notificationStack, setNotificationStack] = useState<notificationFalta[]>([]);
+
+	const deleteNotification = (action: 'accept' | 'reject', notificationId: string) => {
+		axios.delete(`${BACKEND_URL}/notifications/${action}/${notificationId}`).then((res) => console.log(res.data));
+		setNotificationStack(notificationStack.filter((n) => n.idNotif !== notificationId));
+	};
+
 	useEffect(() => {
-		console.log(notificationStack);
-	}, [notificationStack]);
+		if (notificationData && !notificationData.isLoading && !notificationData.error)
+			setNotificationStack(notificationData.data);
+	}, [notificationData]);
 
 	if (notificationStack.length === 0)
 		return (

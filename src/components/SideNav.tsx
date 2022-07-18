@@ -3,8 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { motion as m } from 'framer-motion';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MdOutlineClose } from 'react-icons/md';
+import { NotificationContext } from '../App';
 
 const SideNav = () => {
+	const notificationData = React.useContext(NotificationContext);
+
 	const [sideNavOpen, setSideNavOpen] = React.useState(false);
 
 	const closeNav = () => setSideNavOpen(false);
@@ -31,6 +34,11 @@ const SideNav = () => {
 				}}>
 				{sideNavOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
 			</m.button>
+			{notificationData &&
+				!notificationData.isLoading &&
+				!notificationData.error &&
+				notificationData.data!.length &&
+				!sideNavOpen && <NotificationCounter qty={notificationData.data!.length} />}
 			{sideNavOpen && (
 				<m.div
 					className='flex flex-wrap p-8 gap-8'
@@ -69,3 +77,15 @@ const SideNav = () => {
 };
 
 export default SideNav;
+
+const NotificationCounter = ({ qty }: { qty: number }) => {
+	return (
+		<m.aside
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ delay: 0.7 }}
+			className='animate-pulse absolute bottom-0 right-0 bg-white w-5 h-5 rounded-full shadow shadow-black-400 flex justify-center items-center'>
+			{qty}
+		</m.aside>
+	);
+};
