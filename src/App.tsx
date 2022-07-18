@@ -30,22 +30,16 @@ function App() {
 		<NotificationContext.Provider value={notificationData}>
 			<GroupesContext.Provider value={groupesData}>
 				<Routes>
-					{!isLogin && <Route path='*' element={<LogIn setIsLogin={setIsLogin} />} />}
-					{isLogin &&
-						(!isUserProfileCreated ? (
-							<Route path='*' element={<CreateProfile setIsUserProfileCreated={setIsUserProfileCreated} />} />
-						) : (
-							<>
-								<Route path='/' element={<Layout children={<Home />} />} />
-								<Route path='/search' element={<Layout children={<Search />} />} />
-								<Route path='/create' element={<Layout children={<CreateGroupe />} />} />
-								<Route path='/notifications' element={<Layout children={<Notifications />} />} />
-								<Route path='/settings' element={<Layout children={<Settings />} />} />
-								<Route path='/pasarFalta' element={<Layout children={<PasarFalta />} />} />
-								<Route path='/falta:idGrp' element={<Layout children={<SeleccionarIntegrante />} />} />
-								<Route path='*' element={<Layout children={<NotFound />} />} />
-							</>
-						))}
+					<Route path='/' element={<Layout children={<Home />} />} />
+					<Route path='/login' element={<LogIn setIsLogin={setIsLogin} />} />
+					<Route path='/createProfile' element={<CreateProfile setIsUserProfileCreated={setIsUserProfileCreated} />} />
+					<Route path='/search' element={<Layout children={<Search />} />} />
+					<Route path='/create' element={<Layout children={<CreateGroupe />} />} />
+					<Route path='/notifications' element={<Layout children={<Notifications />} />} />
+					<Route path='/settings' element={<Layout children={<Settings />} />} />
+					<Route path='/pasarFalta' element={<Layout children={<PasarFalta />} />} />
+					<Route path='/falta:idGrp' element={<Layout children={<SeleccionarIntegrante />} />} />
+					<Route path='*' element={<Layout children={<NotFound />} />} />
 				</Routes>
 			</GroupesContext.Provider>
 		</NotificationContext.Provider>
