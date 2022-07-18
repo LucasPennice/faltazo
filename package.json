@@ -12,6 +12,7 @@
 		"test": "tsc"
 	},
 	"dependencies": {
+		"@auth0/auth0-react": "^1.10.2",
 		"axios": "^0.27.2",
 		"chart.js": "^3.8.0",
 		"filepond": "^4.30.4",

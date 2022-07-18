@@ -21,7 +21,7 @@ export const NotificationContext = createContext<UseQueryResult<notificationFalt
 export const GroupesContext = createContext<UseQueryResult<groupe[], unknown> | undefined>(undefined);
 
 function App() {
-	const [isLogin, setIsLogin] = useState(true);
+	const [isLogin, setIsLogin] = useState(false);
 	const [isUserProfileCreated, setIsUserProfileCreated] = useState(true);
 	const notificationData = useQuery<notificationFalta[]>(['notifications'], getAllNotifications);
 	const groupesData = useQuery<groupe[]>(['groupes'], getUserGroupes);
