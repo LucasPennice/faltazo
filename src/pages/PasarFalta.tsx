@@ -14,20 +14,17 @@ const PasarFalta = () => {
 
 	if (groupesData.data!.length === 0)
 		return (
-			<m.main
-				initial={{ opacity: 0, y: 50 }}
-				animate={{ opacity: 1, y: 0 }}
-				className='pt-28 mx-4 text-center text-3xl'>
+			<m.main initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} className='pt-28 mx-4 text-center text-xl'>
 				No hay grupos
-				<section className='flex justify-between mt-8'>
+				<section className='flex justify-center gap-6 mt-8'>
 					<NavLink to='/search'>
 						<div className='h-24 min-w-24 px-4 gradient text-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							SEARCH
+							BUSCAR
 						</div>
 					</NavLink>
 					<NavLink to='/create'>
 						<div className='h-24 min-w-24 px-4 gradient text-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							CREATE GROUPE
+							CREAR GRUPO
 						</div>
 					</NavLink>
 				</section>

@@ -8,10 +8,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const SideNav = () => {
 	const notificationData = React.useContext(NotificationContext);
-
 	const [sideNavOpen, setSideNavOpen] = React.useState(false);
-	const { logout } = useAuth0();
+	const { logout, user, isAuthenticated, isLoading } = useAuth0();
 	const closeNav = () => setSideNavOpen(false);
+
+	const isNotificationDataAvailable = () => {
+		return notificationData && !notificationData.isLoading && !notificationData.error && notificationData.data!.length;
+	};
 
 	return (
 		<m.section
@@ -35,48 +38,53 @@ const SideNav = () => {
 				}}>
 				{sideNavOpen ? <MdOutlineClose /> : <GiHamburgerMenu />}
 			</m.button>
-			{notificationData &&
-				!notificationData.isLoading &&
-				!notificationData.error &&
-				notificationData.data!.length &&
-				!sideNavOpen && <NotificationCounter qty={notificationData.data!.length} />}
+			{isNotificationDataAvailable() && !sideNavOpen && <NotificationCounter qty={notificationData!.data!.length} />}
 			{sideNavOpen && (
-				<m.div
-					className='flex flex-wrap p-8 gap-8'
+				<m.section
+					className='p-8'
 					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.6 }}>
-					<NavLink to='/' onClick={closeNav}>
-						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							HOME
+					<aside className='flex items-center mb-8 gap-4'>
+						{user && <img src={user?.picture} className='h-10 w-10 rounded-full shadow-xl shadow-black-400' />}
+						<m.h1 className='text-xl text-white tracking-wider'>Hello, {user && user.name}</m.h1>
+					</aside>
+					<m.div className='flex flex-wrap gap-8'>
+						<NavLink to='/' onClick={closeNav}>
+							<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
+								HOME
+							</div>
+						</NavLink>
+						<NavLink to='/search' onClick={closeNav}>
+							<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
+								SEARCH
+							</div>
+						</NavLink>
+						<NavLink to='/create' onClick={closeNav}>
+							<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
+								CREATE GROUPE
+							</div>
+						</NavLink>
+						<NavLink to='/notifications' onClick={closeNav}>
+							<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
+								NOTIFICATIONS{' '}
+								<mark style={{ color: '#CB56EC' }} className='bg-transparent pl-2 text-xl'>
+									{isNotificationDataAvailable() && notificationData!.data!.length}
+								</mark>
+							</div>
+						</NavLink>
+						<NavLink to='/settings' onClick={closeNav}>
+							<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
+								SETTINGS
+							</div>
+						</NavLink>
+						<div
+							onClick={() => logout({ returnTo: window.location.origin })}
+							className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider cursor-pointer'>
+							LOG OUT
 						</div>
-					</NavLink>
-					<NavLink to='/search' onClick={closeNav}>
-						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							SEARCH
-						</div>
-					</NavLink>
-					<NavLink to='/create' onClick={closeNav}>
-						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							CREATE GROUPE
-						</div>
-					</NavLink>
-					<NavLink to='/notifications' onClick={closeNav}>
-						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							NOTIFICATIONS
-						</div>
-					</NavLink>
-					<NavLink to='/settings' onClick={closeNav}>
-						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
-							SETTINGS
-						</div>
-					</NavLink>
-					<div
-						onClick={() => logout({ returnTo: window.location.origin })}
-						className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider cursor-pointer'>
-						LOG OUT
-					</div>
-				</m.div>
+					</m.div>
+				</m.section>
 			)}
 		</m.section>
 	);

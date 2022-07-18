@@ -22,10 +22,9 @@ export const NotificationContext = createContext<UseQueryResult<notificationFalt
 export const GroupesContext = createContext<UseQueryResult<groupe[], unknown> | undefined>(undefined);
 
 function App() {
-	const [isUserProfileCreated, setIsUserProfileCreated] = useState(true);
 	const notificationData = useQuery<notificationFalta[]>(['notifications'], getAllNotifications);
 	const groupesData = useQuery<groupe[]>(['groupes'], getUserGroupes);
-	const { user, isAuthenticated, isLoading } = useAuth0();
+	const { isAuthenticated, isLoading } = useAuth0();
 
 	if (!isLoading && !isAuthenticated) return <LogIn />;
 
@@ -34,7 +33,7 @@ function App() {
 			<GroupesContext.Provider value={groupesData}>
 				<Routes>
 					<Route path='/' element={<Layout children={<Home />} />} />
-					<Route path='/createProfile' element={<CreateProfile setIsUserProfileCreated={setIsUserProfileCreated} />} />
+					<Route path='/createProfile' element={<CreateProfile />} />
 					<Route path='/search' element={<Layout children={<Search />} />} />
 					<Route path='/create' element={<Layout children={<CreateGroupe />} />} />
 					<Route path='/notifications' element={<Layout children={<Notifications />} />} />

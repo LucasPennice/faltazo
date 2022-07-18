@@ -5,26 +5,43 @@ import { motion as m } from 'framer-motion';
 import TextInput from '../components/TextInput';
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { toast, ToastContainer } from 'react-toastify';
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+import axios from 'axios';
+import { BACKEND_URL } from '../utils';
+registerPlugin(FilePondPluginFileValidateType, FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const CreateProfile = ({ setIsUserProfileCreated }: { setIsUserProfileCreated: (value: boolean) => void }) => {
+const CreateProfile = () => {
 	const [userName, setUserName] = useState('');
 	const [userDescription, setUserDescription] = useState('');
 	const [userBio, setUserBio] = useState('');
 	const [files, setFiles] = useState<any>([]);
+	const [fileFinishedUploading, setfileFinishedUploading] = useState<boolean>(false);
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		// if (!userName) return toast.warning('Username Empty');
-		// if (!userDescription) return toast.warning('User description empty');
-		// if (!userBio) return toast.warning('user bio empty');
-		// if (files.length === 0) return toast.warning('Upload a pic');
-		// toast.success('Hacer un llamado a la api de crear perfil, si devuelve 200 entonces esta todo ok');
-		setIsUserProfileCreated(true);
+		if (!userName) return toast.warning('Username Empty');
+		if (!userDescription) return toast.warning('User description empty');
+		if (!userBio) return toast.warning('user bio empty');
+		if (!fileFinishedUploading) return toast.warning('Please wait for the file to finish uploading');
+		if (files.length === 0) return toast.warning('Upload a pic');
+		const response = await toast.promise(
+			() => axios.post(`${BACKEND_URL}/profile`, { userName, userDescription, userBio }),
+			{
+				pending: 'Loading',
+				success: {
+					render() {
+						console.log('teas');
+						return `Profile created`;
+					},
+				},
+				error: 'There was an error',
+			}
+		);
+		console.log(response);
 	};
 
 	return (
@@ -44,8 +61,10 @@ const CreateProfile = ({ setIsUserProfileCreated }: { setIsUserProfileCreated: (
 							files={files}
 							onupdatefiles={setFiles}
 							allowMultiple={true}
+							onprocessfile={() => setfileFinishedUploading(true)}
+							acceptedFileTypes={['image/png', 'image/jpg', 'image/jpeg']}
 							maxFiles={3}
-							server='/api'
+							server={`${BACKEND_URL}/uploadProfilePicture`}
 							name='files'
 							labelIdle={`Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`}
 						/>
