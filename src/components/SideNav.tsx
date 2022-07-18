@@ -4,12 +4,13 @@ import { motion as m } from 'framer-motion';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MdOutlineClose } from 'react-icons/md';
 import { NotificationContext } from '../App';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const SideNav = () => {
 	const notificationData = React.useContext(NotificationContext);
 
 	const [sideNavOpen, setSideNavOpen] = React.useState(false);
-
+	const { logout } = useAuth0();
 	const closeNav = () => setSideNavOpen(false);
 
 	return (
@@ -70,6 +71,11 @@ const SideNav = () => {
 							SETTINGS
 						</div>
 					</NavLink>
+					<div
+						onClick={() => logout({ returnTo: window.location.origin })}
+						className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider cursor-pointer'>
+						LOG OUT
+					</div>
 				</m.div>
 			)}
 		</m.section>

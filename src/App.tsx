@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LogIn from './pages/LogIn';
 import Layout from './components/Layout';
@@ -16,22 +16,24 @@ import SeleccionarIntegrante from './pages/SeleccionarIntegrante';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getAllNotifications } from './services/notifications';
 import { getUserGroupes } from './services/groupes';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const NotificationContext = createContext<UseQueryResult<notificationFalta[], unknown> | undefined>(undefined);
 export const GroupesContext = createContext<UseQueryResult<groupe[], unknown> | undefined>(undefined);
 
 function App() {
-	const [isLogin, setIsLogin] = useState(false);
 	const [isUserProfileCreated, setIsUserProfileCreated] = useState(true);
 	const notificationData = useQuery<notificationFalta[]>(['notifications'], getAllNotifications);
 	const groupesData = useQuery<groupe[]>(['groupes'], getUserGroupes);
+	const { user, isAuthenticated, isLoading } = useAuth0();
+
+	if (!isLoading && !isAuthenticated) return <LogIn />;
 
 	return (
 		<NotificationContext.Provider value={notificationData}>
 			<GroupesContext.Provider value={groupesData}>
 				<Routes>
 					<Route path='/' element={<Layout children={<Home />} />} />
-					<Route path='/login' element={<LogIn setIsLogin={setIsLogin} />} />
 					<Route path='/createProfile' element={<CreateProfile setIsUserProfileCreated={setIsUserProfileCreated} />} />
 					<Route path='/search' element={<Layout children={<Search />} />} />
 					<Route path='/create' element={<Layout children={<CreateGroupe />} />} />

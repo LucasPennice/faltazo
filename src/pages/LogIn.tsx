@@ -1,6 +1,9 @@
 import { motion as m } from 'framer-motion';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const LogIn = ({ setIsLogin }: { setIsLogin: (value: boolean) => void }) => {
+const LogIn = () => {
+	const { loginWithRedirect } = useAuth0();
+
 	return (
 		<main className='h-screen flex flex-col justify-evenly items-center'>
 			<m.h1
@@ -16,25 +19,9 @@ const LogIn = ({ setIsLogin }: { setIsLogin: (value: boolean) => void }) => {
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.2 }}
-						onClick={() => setIsLogin(true)}
-						className='gradient shadow-lg shadow-gray-500/50 h-20 w-20 rounded-xl text-white'>
-						Google
-					</m.button>
-					<m.button
-						initial={{ opacity: 0, y: 50 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.3 }}
-						onClick={() => setIsLogin(true)}
-						className='gradient shadow-lg shadow-gray-500/50 h-20 w-20 rounded-xl text-white'>
-						GitHub
-					</m.button>
-					<m.button
-						initial={{ opacity: 0, y: 50 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.4 }}
-						onClick={() => setIsLogin(true)}
-						className='gradient shadow-lg shadow-gray-500/50 h-20 w-20 rounded-xl text-white'>
-						Twitter
+						onClick={() => loginWithRedirect()}
+						className='gradient shadow-lg shadow-gray-500/50 h-20 w-full px-11 rounded-xl text-white'>
+						Log In / Log In With Google
 					</m.button>
 				</section>
 			</section>

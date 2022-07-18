@@ -14,8 +14,9 @@ import {
 import { Line } from 'react-chartjs-2';
 import { notificationFalta } from '../types';
 import LoadingIcon from '../components/LoadingIcon';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { NotificationContext } from '../App';
+import { useAuth0 } from '@auth0/auth0-react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
