@@ -6,8 +6,8 @@
 	"author": "Lucas Pennice <lucaspennice@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "vite --env.ENVIRONMENT=development",
-		"build": "vite build --env.ENVIRONMENT=production",
+		"dev": "vite",
+		"build": "vite build",
 		"serve": "vite preview",
 		"test": "tsc"
 	},
