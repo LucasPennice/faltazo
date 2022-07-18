@@ -21,7 +21,7 @@ const SideNav = () => {
 				opacity: 1,
 				borderRadius: sideNavOpen ? '0rem 0rem 1rem 1rem' : '50%',
 				width: sideNavOpen ? '100%' : '3rem',
-				height: sideNavOpen ? '30rem' : '3rem',
+				height: sideNavOpen ? '40rem' : '3rem',
 			}}
 			transition={{ type: 'spring', stiffness: 100, damping: 15 }}>
 			<m.button
@@ -44,7 +44,7 @@ const SideNav = () => {
 					className='flex flex-wrap p-8 gap-8'
 					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.3 }}>
+					transition={{ delay: 0.6 }}>
 					<NavLink to='/' onClick={closeNav}>
 						<div className='h-24 min-w-24 px-4 bg-white rounded flex justify-center items-center shadow-xl shadow-black-400 tracking-wider'>
 							HOME
